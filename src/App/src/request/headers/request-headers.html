@@ -1,3 +1,15 @@
 <template>
-    <table-component key-value-pairs.bind="headers"></table-component>
+    <div class="request-headers">
+        <div repeat.for="header of request.defaultHeaders" class="header-row">
+            <div class="header-input-container">
+                <input value.bind="header.key" class="header-input" readonly/>
+            </div>
+            <div class="header-input-container">
+                <input value.bind="header.value" class="header-input" readonly/>
+            </div>
+        </div>
+    </div>
+
+    <hr class="request-headers-line"/>
+    <table-component key-value-pairs.two-way="request.headers"></table-component>
 </template>

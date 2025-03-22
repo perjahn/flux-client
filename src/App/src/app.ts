@@ -38,6 +38,7 @@ export class App {
     public sendRequest(): void {
         this.request.queryParameters.filter((query) => query.key !== '' && query.value !== '');
         this.request.headers.filter((header) => header.key !== '' && header.value !== '');
+        this.request.method = this.type;
 
         console.log(this.request);
     }

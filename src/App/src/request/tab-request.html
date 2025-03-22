@@ -21,7 +21,7 @@
                 <request-query request.bind="request"></request-query>
             </div>
             <div show.bind="showHeaders">
-                <request-headers headers.bind="request.headers"></request-headers>
+                <request-headers request.bind="request"></request-headers>
             </div>
             <div show.bind="showAuth">
                 <request-auth selected-auth-type.two-way="request.auth.type" auth.two-way="request.auth"></request-auth>

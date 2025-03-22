@@ -1,11 +1,13 @@
 import { bindable } from "aurelia"
-import { KeyValueEntity } from "../../entities/key-value-entity";
 import { TableComponent } from "../../common/table/table-component";
+import { InputComponent } from "../../common/input/input-component";
+import { RequestEntity } from "../../entities/request-entity";
 
 export class RequestHeaders {
     static dependencies = [
-        TableComponent
+        TableComponent,
+        InputComponent
     ]
 
-    @bindable public headers: KeyValueEntity[] = [];
+    @bindable public request: RequestEntity;
 }

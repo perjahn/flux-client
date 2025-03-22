@@ -1,0 +1,29 @@
+.request-headers {
+    margin-left: 27px;
+
+    .header-row {
+        display: flex;
+        gap: 10px;
+        width: calc(100% - 75px);
+    }
+
+    .header-input-container {
+        flex: 1;
+    }
+
+    .header-input {
+        background-color: #252526;
+        border: none;
+        border-bottom: 3px solid #3c3c3c;
+        padding: 10px;
+        color: #D4D4D4;
+        outline: none;
+        width: 100%;
+    }
+}
+
+.request-headers-line {
+    margin: 20px 55px 20px 30px;
+    border: none;
+    border-top: 1px solid #D4D4D4;
+}

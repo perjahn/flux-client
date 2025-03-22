@@ -14,6 +14,10 @@ export class RequestQuery {
             .filter((query) => query.key !== '' || query.value !== '')
             .filter((query) => query.isSelected);
 
+        if (this.request.url.length === 0 && queries.length === 0) {
+            return 'URL Preview'
+        }
+
         if (queries.length === 0) {
             return `${this.request.url}/`;
         }

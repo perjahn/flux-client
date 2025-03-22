@@ -5,7 +5,7 @@ export class KeyValueEntity {
     public isSelected: boolean;
     public isHidden: boolean;
 
-    constructor(key: string, value: string) {
+    constructor(key: string, value: string) { 
         this.id = this._generateId();
         this.key = key;
         this.value = value;
