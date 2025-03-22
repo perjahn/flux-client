@@ -1,9 +1,8 @@
-import { bindable, BindingMode, EventAggregator, inject, observable } from "aurelia";
+import { bindable, BindingMode, observable } from "aurelia";
 import { GroupedDropdown } from "../../common/dropdowns/grouped-dropdown/grouped-dropdown";
 import { ApiKeyAuth, AuthEntity, AuthType, BasicAuth, BearerTokenAuth } from "../../entities/auth-entity";
 import { InputComponent } from "../../common/input/input-component";
 
-@inject(EventAggregator)
 export class RequestAuth {
     @bindable({ mode: BindingMode.twoWay }) public auth: AuthEntity;
     @bindable({ mode: BindingMode.twoWay }) public selectedAuthType: string = 'none';
@@ -20,12 +19,7 @@ export class RequestAuth {
     public prefix: string = '';
     public key: string = '';
     public value: string = '';
-
-    private _eventAggregator: EventAggregator;
-    
-    constructor(eventAggregator: EventAggregator) {
-        this._eventAggregator = eventAggregator;
-    }
+   
 
     public authTypeOptions: Array<{ label: string, imageUrl?: string, imageClass?: string, options: Array<{ label: string, value: string }>}> = [
         {
@@ -55,17 +49,29 @@ export class RequestAuth {
         }
     ];
 
-    public selectedApiKeyLocationChanged(newValue: string): void {
-        console.log('sending event');
-        console.log(this.auth);
-        const apiKeyAuth = this.auth as ApiKeyAuth;
-        console.log(apiKeyAuth);
-        const eventPayload: string = `43a7e5dd-5532-474c-9ac5-795260c7d321:${newValue}:${apiKeyAuth.key}:${apiKeyAuth.value}`;
-
-        this._eventAggregator.publish('api-key-location-changed', eventPayload);        
+    public selectedAuthTypeChanged(newValue: AuthType): void {
+        this._saveAuthState();
+        this._loadAuthState(newValue);
     }
 
-    public selectedAuthTypeChanged(newValue: AuthType): void {
+    private _saveAuthState(): void {
+        switch (this.auth.type) {
+            case 'basic':
+                this.username = (this.auth as BasicAuth).username;
+                this.password = (this.auth as BasicAuth).password;
+                break;
+            case 'bearer-token':
+                this.token = (this.auth as BearerTokenAuth).token;
+                this.prefix = (this.auth as BearerTokenAuth).prefix;
+                break;
+            case 'api-key':
+                this.key = (this.auth as ApiKeyAuth).key;
+                this.value = (this.auth as ApiKeyAuth).value;
+                break;
+        }
+    }
+
+    private _loadAuthState(newValue: AuthType): void {
         if (newValue === this.auth.type) {
             return;
         }
